@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "campo-conecta-back"
+version = "0.1.0"
+description = "Backend da solução do desafio 3 do hackathon Jornada Caatinga+ 2024"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.110.2"}
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
