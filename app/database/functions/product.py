@@ -9,4 +9,3 @@ def create(db: Session, product: BaseProduct):
   db.commit()
   db.refresh(db_product)
   return db_product
-  
