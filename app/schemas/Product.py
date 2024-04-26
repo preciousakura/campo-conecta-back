@@ -9,3 +9,10 @@ class BaseProduct(BaseModel):
 class Product(BaseProduct):
   id: int
   picture: str | None = None
+
+class ProductUpdate(BaseModel):
+  name: str | None = None
+  price: float | None = None
+  total_available: int | None = None
+  description: str | None = None
+  picture: str | None = None
