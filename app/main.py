@@ -3,8 +3,12 @@ from app.routers import auth, product
 from dotenv import load_dotenv
 from app.errors import add_error_handlers
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
-load_dotenv()
+APP_ROOT = os.path.join(os.path.dirname(__file__))
+ENV_PATH = os.path.join(APP_ROOT, '.env')
+
+load_dotenv(ENV_PATH)
 
 app = FastAPI()
 app.add_middleware(

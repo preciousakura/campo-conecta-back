@@ -9,3 +9,6 @@ def create(db: Session, product: BaseProduct):
   db.commit()
   db.refresh(db_product)
   return db_product
+
+def create(db: Session, product_id: int, product: BaseProduct):
+  db_product = db.query(models.Product)
