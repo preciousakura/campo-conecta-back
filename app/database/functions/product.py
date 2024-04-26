@@ -25,7 +25,7 @@ def update(db: Session, product_id: int, product: BaseProduct):
   db.refresh(db_product)
   return db_product
 
-def index(db: Session, page: int, size: int, min_price: int | None, max_price: int | None, price_order: Order | None, search: str | None, available: bool | None):
+def index(db: Session, page: int, size: int, min_price: int | None, max_price: int | None, price_order: Order | None, search: str | None, available: bool | None, product_type: models.ProductType | None = None):
   items_query = db.query(models.Product)
 
   if min_price is not None:
@@ -39,6 +39,9 @@ def index(db: Session, page: int, size: int, min_price: int | None, max_price: i
 
   if available:
     items_query = items_query.filter(models.Product.total_available > 0)
+
+  if product_type is not None:
+    items_query = items_query.filter(models.Product == product_type)
 
   total = items_query.with_entities(func.count(models.Product.id)).scalar()
   pages = math.ceil(total / size)

@@ -5,6 +5,7 @@ from app.dependencies import get_db, get_current_user
 from app.schemas.Product import Product, BaseProduct, ProductUpdate
 from app.schemas.Utils import Pageable, Order
 from app.database.functions import product
+from app.models import ProductType
 
 router = APIRouter(
   prefix='/product',
@@ -24,7 +25,7 @@ def index_products(
   _: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)],
   page: Annotated[int, Query(ge=0)] = 0, size: Annotated[int, Query(gt=0)] = 10,
   min_price: Annotated[int | None, Query(ge=0)] = None, max_price: Annotated[int | None, Query(ge=0)] = None,
-  price_order: Order | None = None, search: str | None = None, available: bool | None = None
+  price_order: Order | None = None, search: str | None = None, available: bool | None = None, product_type: ProductType | None = None
 ):
   return product.index(db, page, size, min_price, max_price, price_order, search, available)
 

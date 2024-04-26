@@ -1,5 +1,12 @@
-from sqlalchemy import Column, String, Integer, Float, Text
+from sqlalchemy import Column, String, Integer, Float, Text, Enum
 from app.database.connection import Base
+import enum
+
+class ProductType(enum.Enum):
+  PACKAGING = 'PACKAGING'
+  SUPPLIE = 'SUPPLIE'
+  EQUIPMENT = 'EQUIPMENT'
+  LABEL = 'LABEL'
 
 class User(Base):
   __tablename__ = 'users'
@@ -19,3 +26,4 @@ class Product(Base):
   price = Column(Float, nullable=False)
   total_available = Column(Integer, nullable=False)
   picture = Column(String)
+  product_type = Column(Enum(ProductType))
