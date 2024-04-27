@@ -41,11 +41,3 @@ def get_supplier_info(_: Annotated[int, Depends(get_current_user)], db: Annotate
 @router.post('/supplier', status_code=201, response_model=Supplier)
 def create_supplier(db: Annotated[Session, Depends(get_db)], new_supplier: SupplierBase):
   return product.create_supplier(db, new_supplier)
-
-@router.post('/populate_suppliers', status_code=200)
-def populate(db: Annotated[Session, Depends(get_db)]):
-  return product.populate_suppliers(db)
-
-@router.post('/populate_products', status_code=200)
-def populate(db: Annotated[Session, Depends(get_db)]):
-  return product.populate_products(db)

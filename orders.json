@@ -1,0 +1,62 @@
+[
+  {
+    "product_id": 1,
+    "amount": 100
+  },
+  {
+    "product_id": 2,
+    "amount": 240
+  },
+  {
+    "product_id": 3,
+    "amount": 250
+  },
+  {
+    "product_id": 4,
+    "amount": 135
+  },
+  {
+    "product_id": 5,
+    "amount": 123
+  },
+  {
+    "product_id": 6,
+    "amount": 333
+  },
+  {
+    "product_id": 1,
+    "amount": 150
+  },
+  {
+    "product_id": 2,
+    "amount": 31
+  },
+  {
+    "product_id": 3,
+    "amount": 60
+  },
+  {
+    "product_id": 4,
+    "amount": 50
+  },
+  {
+    "product_id": 5,
+    "amount": 150
+  },
+  {
+    "product_id": 6,
+    "amount": 850
+  },
+  {
+    "product_id": 2,
+    "amount": 350
+  },
+  {
+    "product_id": 3,
+    "amount": 605
+  },
+  {
+    "product_id": 30,
+    "amount": 200
+  }
+]

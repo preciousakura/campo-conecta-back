@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import auth, product, order
+from app.routers import auth, product, order, populate
 from dotenv import load_dotenv
 from app.errors import add_error_handlers
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,3 +22,4 @@ add_error_handlers(app)
 app.include_router(auth.router)
 app.include_router(product.router)
 app.include_router(order.router)
+app.include_router(populate.router)
