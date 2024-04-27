@@ -38,6 +38,9 @@ class Product(Base):
 
   orders = relationship('Order', back_populates='product')
 
+  supplier_id = Column(Integer, ForeignKey('supplier.id'))
+  supplier = relationship('Supplier', back_populates='products')
+
 class Order(Base):
   __tablename__ = 'order'
 
@@ -54,3 +57,13 @@ class Order(Base):
 
   product_id = Column(Integer, ForeignKey('product.id'))
   product = relationship('Product', back_populates='orders')
+
+class Supplier(Base):
+  __tablename__ = 'supplier'
+
+  id = Column(Integer, primary_key=True)
+  name = Column(String, nullable=False)
+  slogan = Column(String)
+  description = Column(String)
+
+  products = relationship('Product', back_populates='supplier')
