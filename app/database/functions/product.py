@@ -6,6 +6,8 @@ from app.schemas.supplier import SupplierBase
 from app.schemas.utils import Order
 from app import models
 import math
+import json
+import os
 
 def create(db: Session, product: ProductBase):
   db_product = models.Product(**product.model_dump())
@@ -97,3 +99,23 @@ def get_supplier_info(db: Session, supplier_id: int):
     'supplier': supplier,
     'most_selled_items': most_selled_items
   }
+
+def populate_suppliers(db: Session):
+  with open(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'suppliers.json'), 'r') as file:
+    suppliers = json.load(file)
+    for supplier in suppliers:
+      new_supplier = models.Supplier(**supplier)
+      db.add(new_supplier)
+    db.commit()
+
+  return 'populated'
+
+def populate_products(db: Session):
+  with open(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'products.json'), 'r') as file:
+    products = json.load(file)
+    for product in products:
+      new_product = models.Product(**product)
+      db.add(new_product)
+    db.commit()
+
+  return 'populated'
