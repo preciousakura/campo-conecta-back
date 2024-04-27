@@ -29,7 +29,7 @@ def update(db: Session, product_id: int, product: ProductBase):
   db.refresh(db_product)
   return db_product
 
-def index(db: Session, page: int, size: int, min_price: int | None, max_price: int | None, price_order: Order | None, search: str | None, available: bool | None, product_type: models.ProductType | None = None):
+def index(db: Session, page: int, size: int, min_price: int | None, max_price: int | None, price_order: Order | None, search: str | None, product_type: models.ProductType | None = None):
   items_query = db.query(models.Product)
 
   if min_price is not None:
@@ -40,9 +40,6 @@ def index(db: Session, page: int, size: int, min_price: int | None, max_price: i
 
   if search is not None:
     items_query = items_query.filter(models.Product.name.ilike(f'%{search}%'))
-
-  if available:
-    items_query = items_query.filter(models.Product.total_available > 0)
 
   if product_type is not None:
     items_query = items_query.filter(models.Product == product_type)
@@ -89,11 +86,8 @@ def get_supplier_info(db: Session, supplier_id: int):
   if supplier is None:
     raise HTTPException(404)
   
-  total_sells = func.sum(models.Order.amount).label('total_sells')
-  
-  most_selled_items = db.query(models.Supplier.id.label('supplier_id'), models.Product.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price, total_sells)\
-    .join(models.Product, models.Product.supplier_id == models.Supplier.id).join(models.Order, models.Order.product_id == models.Product.id)\
-    .group_by(models.Supplier.id, models.Product.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price).order_by(total_sells.desc()).limit(5).all()
+  most_selled_items = db.query(models.Supplier.id.label('supplier_id'), models.Product.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price, models.Product.total_orders)\
+    .join(models.Product, models.Product.supplier_id == models.Supplier.id).order_by(models.Product.total_orders.desc()).limit(5).all()
   
   return {
     'supplier': supplier,

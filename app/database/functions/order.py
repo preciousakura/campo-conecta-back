@@ -21,18 +21,14 @@ def create(db: Session, user_id: int, order_info: OrderCreate):
 
   if order_product is None:
     raise HTTPException(404)
-  
-  if order_product.total_available < order_info.amount:
-    raise HTTPException(500)
-  order_product.total_available -= order_info.amount
 
-  order_price = order_info.amount * order_product.price * calculate_discount(order_info.amount)
+  order_product.total_selled += order_info.amount
+  order_product.total_orders += 1
+  order_product.delivery_price = 25 + (1 / (order_product.total_orders + 1)) * 25
 
   new_order = models.Order(
     amount=order_info.amount,
-    delivery_price=order_info.delivery_price,
     product_id=order_info.product_id,
-    price=order_price,
     user_id=user_id
   )
   db.add(new_order)

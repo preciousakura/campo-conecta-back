@@ -29,11 +29,16 @@ class Product(Base):
   name = Column(String, nullable=False)
   description = Column(Text)
   price = Column(Float, nullable=False)
-  total_available = Column(Integer, nullable=False)
   size = Column(String)
   picture = Column(String)
   product_type = Column(Enum(ProductType))
   rating = Column(Integer, nullable=False)
+
+  total_orders = Column(Integer, nullable=False, default=0)
+  min_orders = Column(Integer, nullable=False, default=1000)
+  total_selled = Column(Float, nullable=False, default=0)
+  delivery_price = Column(Float, nullable=None, default=50)
+  delivery_time = Column(Date, default=expression.func.current_date() + expression.text("INTERVAL '10 days'"))
 
   orders = relationship('Order', back_populates='product')
 
@@ -45,9 +50,6 @@ class Order(Base):
 
   id = Column(Integer, primary_key=True)
   amount = Column(Integer, nullable=None)
-  price = Column(Float, nullable=None)
-  delivery_price = Column(Float, nullable=None)
-  delivery_time = Column(Date, default=expression.func.current_date() + expression.text("INTERVAL '10 days'"))
   created_at = Column(DateTime, default=func.now())
   updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 

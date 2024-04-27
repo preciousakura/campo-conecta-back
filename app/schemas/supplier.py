@@ -17,7 +17,6 @@ class SupplierProduct(BaseModel):
   name: str
   supplier_id: int
   price: float
-  total_available: int
   description: str | None = None
   size: str | None = None
   product_type: ProductType | None = None
@@ -34,7 +33,7 @@ class MostSelledProductInfo(BaseModel):
   rating: int
   picture: str
   price: float
-  total_sells: int
+  total_orders: int
 
 class SupplierInfo(BaseModel):
   supplier: SupplierWithRelations
