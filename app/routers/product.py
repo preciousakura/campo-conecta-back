@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Query
 from app.dependencies import get_db, get_current_user
 from app.schemas.product import Product, ProductBase, ProductUpdate
-from app.schemas.supplier import SupplierBase, Supplier
+from app.schemas.supplier import SupplierBase, Supplier, SupplierInfo
 from app.schemas.utils import Pageable, Order
 from app.database.functions import product
 from app.models import ProductType
@@ -34,10 +34,10 @@ def index_products(
 def delete_product(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], product_id: int):
   return product.delete(db, product_id)
 
+@router.get('/supplier/{supplier_id}', status_code=200, response_model=SupplierInfo)
+def get_supplier_info(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], supplier_id: int):
+  return product.get_supplier_info(db, supplier_id)
+
 @router.post('/supplier', status_code=201, response_model=Supplier)
 def create_supplier(db: Annotated[Session, Depends(get_db)], new_supplier: SupplierBase):
   return product.create_supplier(db, new_supplier)
-
-@router.get('/supplier/{supplier_id}', status_code=200)
-def get_supplier_info(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], supplier_id: int):
-  return product.get_supplier_info(db, supplier_id)

@@ -89,9 +89,9 @@ def get_supplier_info(db: Session, supplier_id: int):
   
   total_sells = func.sum(models.Order.amount).label('total_sells')
   
-  most_selled_items = db.query(models.Supplier.id, models.Supplier.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price, total_sells)\
+  most_selled_items = db.query(models.Supplier.id.label('supplier_id'), models.Product.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price, total_sells)\
     .join(models.Product, models.Product.supplier_id == models.Supplier.id).join(models.Order, models.Order.product_id == models.Product.id)\
-    .group_by(models.Supplier.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price).order_by(total_sells).limit(5).all()
+    .group_by(models.Supplier.id, models.Product.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price).order_by(total_sells.desc()).limit(5).all()
   
   return {
     'supplier': supplier,
