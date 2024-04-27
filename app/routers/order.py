@@ -19,6 +19,7 @@ def create_order(user_id: Annotated[int, Depends(get_current_user)], db: Annotat
 def get_user_orders(
   user_id: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)],
   page: Annotated[int, Query(ge=0)] = 0, size: Annotated[int, Query(gt=0)] = 10,
-  last_months: Annotated[int | None, Query(ge=1, description='Filtrar pedidos criados nos ultimos X meses')] = None
+  last_months: Annotated[int | None, Query(ge=1, description='Filtrar pedidos criados nos ultimos X meses')] = None,
+  search: str | None = None
 ):
-  return order.get_user_orders(db, user_id, page, size, last_months)
+  return order.get_user_orders(db, user_id, page, size, last_months, search)
