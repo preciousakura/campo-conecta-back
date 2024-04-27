@@ -62,6 +62,7 @@ class Supplier(Base):
 
   id = Column(Integer, primary_key=True)
   name = Column(String, nullable=False)
+  rating = Column(Integer, nullable=False)
   logo = Column(String)
   slogan = Column(String)
   description = Column(String)

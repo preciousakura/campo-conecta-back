@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from app.schemas.product import ProductBase
+from app.schemas.supplier import SupplierBase
 from app.schemas.utils import Order
 from app import models
 import math
@@ -73,3 +74,9 @@ def delete(db: Session, product_id: int):
   db.commit()
   return { 'deleted': True }
   
+def create_supplier(db: Session, new_supplier: SupplierBase):
+  new_supplier = models.Supplier(**new_supplier.model_dump())
+  db.add(new_supplier)
+  db.commit()
+  db.refresh(new_supplier)
+  return new_supplier
