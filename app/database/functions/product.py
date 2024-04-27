@@ -1,19 +1,20 @@
 from fastapi import HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
-from app.schemas.Product import BaseProduct
-from app.schemas.Utils import Order
+from app.schemas.product import ProductBase
+from app.schemas.utils import Order
 from app import models
 import math
 
-def create(db: Session, product: BaseProduct):
-  db_product = models.Product(**product.model_dump(), picture='https://images.unsplash.com/photo-1603186741833-4a7cf699a8eb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
+def create(db: Session, product: ProductBase):
+  db_product = models.Product(**product.model_dump())
   db.add(db_product)
   db.commit()
   db.refresh(db_product)
   return db_product
 
-def update(db: Session, product_id: int, product: BaseProduct):
+# apenas para teste
+def update(db: Session, product_id: int, product: ProductBase):
   db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
   if db_product is None:
     raise HTTPException(404)

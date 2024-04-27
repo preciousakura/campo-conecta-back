@@ -2,8 +2,8 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Query
 from app.dependencies import get_db, get_current_user
-from app.schemas.Product import Product, BaseProduct, ProductUpdate
-from app.schemas.Utils import Pageable, Order
+from app.schemas.product import Product, ProductBase, ProductUpdate
+from app.schemas.utils import Pageable, Order
 from app.database.functions import product
 from app.models import ProductType
 
@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 @router.post('', status_code=201, response_model=Product)
-def create_product(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], new_product: BaseProduct):
+def create_product(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], new_product: ProductBase):
   return product.create(db, new_product)
 
 @router.put('/{product_id}', status_code=200, response_model=Product)
@@ -27,7 +27,7 @@ def index_products(
   min_price: Annotated[int | None, Query(ge=0)] = None, max_price: Annotated[int | None, Query(ge=0)] = None,
   price_order: Order | None = None, search: str | None = None, available: bool | None = None, product_type: ProductType | None = None
 ):
-  return product.index(db, page, size, min_price, max_price, price_order, search, available)
+  return product.index(db, page, size, min_price, max_price, price_order, search, available, product_type)
 
 @router.delete('/{product_id}', status_code=200, response_model=dict[str, bool])
 def delete_product(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], product_id: int):

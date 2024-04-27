@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.schemas.User import UserReturn
+from app.schemas.user import UserReturn
 
 class AuthenticatedUser(BaseModel):
   access_token: str

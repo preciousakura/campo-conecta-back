@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.User import UserCreate
+from app.schemas.user import UserCreate
 from app import models
 from datetime import datetime, timedelta
 import bcrypt
