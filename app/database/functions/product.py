@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy import func
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.schemas.product import ProductBase
 from app.schemas.supplier import SupplierBase
 from app.schemas.utils import Order
@@ -80,3 +80,18 @@ def create_supplier(db: Session, new_supplier: SupplierBase):
   db.commit()
   db.refresh(new_supplier)
   return new_supplier
+
+def get_supplier_info(db: Session, supplier_id: int):
+  supplier = db.query(models.Supplier).filter(models.Supplier.id == supplier_id).options(joinedload(models.Supplier.products)).first()
+
+  if supplier is None:
+    raise HTTPException(404)
+  
+  most_selled_items = db.query(models.Supplier.id, models.Supplier.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price, func.sum(models.Order.amount))\
+    .join(models.Product, models.Product.supplier_id == models.Supplier.id).join(models.Order, models.Order.product_id == models.Product.id)\
+    .group_by(models.Supplier.id, models.Product.name, models.Product.rating, models.Product.picture, models.Product.price).all()
+  
+  return {
+    'supplier': supplier,
+    'most_selled_items': most_selled_items
+  }

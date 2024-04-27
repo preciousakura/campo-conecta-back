@@ -37,3 +37,7 @@ def delete_product(_: Annotated[int, Depends(get_current_user)], db: Annotated[S
 @router.post('/supplier', status_code=201, response_model=Supplier)
 def create_supplier(db: Annotated[Session, Depends(get_db)], new_supplier: SupplierBase):
   return product.create_supplier(db, new_supplier)
+
+@router.get('/supplier/{supplier_id}', status_code=200)
+def get_supplier_info(_: Annotated[int, Depends(get_current_user)], db: Annotated[Session, Depends(get_db)], supplier_id: int):
+  return product.get_supplier_info(db, supplier_id)
