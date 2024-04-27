@@ -6,6 +6,16 @@ from app.schemas.order import OrderCreate
 from app import models
 import math
 
+def calculate_discount(amount: int):
+  if amount >= 2000:
+    return 0.85
+  elif amount >= 1000:
+    return 0.90
+  elif amount >= 500:
+    return 0.95
+  else:
+    return 1
+
 def create(db: Session, user_id: int, order_info: OrderCreate):
   order_product = db.query(models.Product).filter(models.Product.id == order_info.product_id).first()
 
@@ -16,7 +26,7 @@ def create(db: Session, user_id: int, order_info: OrderCreate):
     raise HTTPException(500)
   order_product.total_available -= order_info.amount
 
-  order_price = order_info.amount * order_product.price
+  order_price = order_info.amount * order_product.price * calculate_discount(order_info.amount)
 
   new_order = models.Order(
     amount=order_info.amount,
