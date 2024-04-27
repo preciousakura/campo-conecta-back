@@ -1,0 +1,37 @@
+[
+    {
+        "name": "AgroMax",
+        "rating": 5,
+        "logo": "http://example.com/logos/agromax.png",
+        "slogan": "Cultivando qualidade!",
+        "description": "A AgroMax lider no fornecimento de sementes e fertilizantes de alta qualidade para agricultores em todo o pais."
+    },
+    {
+        "name": "VerdeVida",
+        "rating": 4,
+        "logo": "http://example.com/logos/verdevida.png",
+        "slogan": "Sua colheita mais verde!",
+        "description": "A VerdeVida oferece produtos organicos e sustentaveis que ajudam os agricultores a produzir de maneira mais eficiente e ambientalmente responsavel."
+    },
+    {
+        "name": "TerraFertil",
+        "rating": 4,
+        "logo": "http://example.com/logos/terrafertil.png",
+        "slogan": "Nutrindo terras, colhendo futuro!",
+        "description": "Com mais de 20 anos de experiencia, a TerraFertil e especializada em nutricao vegetal, melhorando a produtividade e a saude das plantacoes."
+    },
+    {
+        "name": "CultivaGrow",
+        "rating": 3,
+        "logo": "http://example.com/logos/cultivagrow.png",
+        "slogan": "Inovacao no campo!",
+        "description": "CultivaGrow traz as mais recentes inovacoes tecnologicas para a agricultura, ajudando seus clientes a maximizar suas colheitas com tecnologia de ponta."
+    },
+    {
+        "name": "SemeiaBem",
+        "rating": 5,
+        "logo": "http://example.com/logos/semeiabem.png",
+        "slogan": "Semeando qualidade, colhendo sucesso!",
+        "description": "A SemeiaBem e conhecida por sua alta qualidade em sementes e servicos de consultoria agricola, garantindo o melhor desempenho nas lavouras de seus clientes."
+    }
+]
