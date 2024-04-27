@@ -1,10 +1,11 @@
 from typing import Annotated
 from pydantic import BaseModel, Field
 from app.models import ProductType
+from app.schemas.supplier import Supplier
 
 class ProductBase(BaseModel):
   name: str
-  supplier_name: str
+  supplier_id: int
   price: float
   total_available: int
   description: str | None = None
@@ -18,7 +19,7 @@ class Product(ProductBase):
 
 class ProductUpdate(BaseModel):
   name: str | None = None
-  supplier_name: str | None = None
+  supplier_id: int | None = None
   description: str | None = None
   price: float | None = None
   total_available: int | None = None
@@ -27,3 +28,5 @@ class ProductUpdate(BaseModel):
   product_type: ProductType | None = None
   rating: Annotated[int | None, Field(le=5, ge=0)] = None
 
+class ProductWithRelations(Product):
+  supplier: list[Supplier]

@@ -27,7 +27,6 @@ class Product(Base):
 
   id = Column(Integer, primary_key=True)
   name = Column(String, nullable=False)
-  supplier_name = Column(String, nullable=False)
   description = Column(Text)
   price = Column(Float, nullable=False)
   total_available = Column(Integer, nullable=False)
@@ -63,6 +62,7 @@ class Supplier(Base):
 
   id = Column(Integer, primary_key=True)
   name = Column(String, nullable=False)
+  logo = Column(String)
   slogan = Column(String)
   description = Column(String)
 
