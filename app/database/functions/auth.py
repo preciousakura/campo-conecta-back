@@ -39,3 +39,5 @@ def signin(db: Session, email: str, password: str):
   else:
     raise HTTPException(500)
   
+def verify(db: Session, user_id: int):
+  return db.query(models.User).filter(models.User.id == user_id).first()
